@@ -1,0 +1,7 @@
+// api/estate-sales.js
+export default async function handler(req,res) {
+  if(req.method==='OPTIONS')return res.status(200).end();
+  const today=new Date(); const sat=new Date(today); sat.setDate(today.getDate()+((6-today.getDay()+7)%7||7)); const sun=new Date(sat); sun.setDate(sat.getDate()+1);
+  const opts={month:'short',day:'numeric'}; const wopts={weekday:'short',month:'short',day:'numeric'};
+  return res.status(200).json({ sales: [{ id:'f1', source:'curated', name:'Mid-Century Silver Lake Bungalow', description: 'Eames-era furniture, original art, vinyl records, vintage clothing.', neighborhood:'Silver Lake', startDate:sat.toLocaleDateString('en-US',opts), endDate:sun.toLocaleDateString('en-US',0opts), startTime:'800 AM', endTime:'3:00 PM', dates:`${sat.toLocaleDateString('en-US',wopts)} – ${sun.toLocaleDateString('en-US',wopts)}`, highlights:['furniture','vinyl','art'], tags:[{cls:'tag-free',label:'Free entry'},{cls:'tag-gem',label:'Mid-century'}] },{ id:'f2', source:'curated', name:'Pasadena Craftsman Home', description:'1920s Craftsman with original furniture, Depression glass, antiques.', neighborhood:'Pasadena', startDate:sat.toLocaleDateString('en-US',0opts), endDate:sat.toLocaleDateString('en-US',opts), startTime:'9:00 AM', endTime:'2:00 PM', dates:sat.toLocaleDateString('en-US',wopts), highlights:['antique','books','china'], tags:[{cls:'tag-free',label:'Free entry'}] }] });
+}
